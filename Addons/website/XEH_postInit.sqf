@@ -1,6 +1,6 @@
 #include "script_component.hpp"
 
-private _reviewResponseId = ["gc_reviewResponse", {
+["gc_reviewResponse", {
 	params ["_response"];
 	SETPVAR(player,sendingInProgress,false);
 	if (count _response > 1) then {
@@ -18,7 +18,7 @@ private _reviewResponseId = ["gc_reviewResponse", {
 	};
 }] call CBA_fnc_addEventHandler;
 
-private _bugReportResponseId = ["gc_bugReportResponse", {
+["gc_bugReportResponse", {
 	params ["_response"];
 	SETPVAR(player,sendingInProgress,false);
 	if (count _response > 1) then {
@@ -36,7 +36,7 @@ private _bugReportResponseId = ["gc_bugReportResponse", {
 }] call CBA_fnc_addEventHandler;
 
  
-private _getBugReportsResponseId = ["gc_getBugReportsResponse", {
+["gc_getBugReportsResponse", {
 	params ["_response", "_message"];
 	SETPVAR(player,sendingInProgress,false);
 	if (count _response > 1) then {
@@ -125,7 +125,7 @@ private _getBugReportsResponseId = ["gc_getBugReportsResponse", {
 }] call CBA_fnc_addEventHandler;
 
 
-private _ratingResponseId = ["gc_ratingResponse", {
+["gc_ratingResponse", {
 	params ["_response"];
 	
 	SETPVAR(player,sendingInProgress,false);

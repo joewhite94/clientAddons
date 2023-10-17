@@ -4,7 +4,7 @@ class RscEdit;
 class RscButtonMenu;
 class RscCombo;
 
-class gc_gcWebsiteFunctions_submit_rating_sendBoxTitleBase: RscTitle {
+class GVAR(submit_rating_sendBoxTitleBase): RscTitle {
     idc = -1;
     style = 0;
     text = "SUBMIT A MISSION RATING";
@@ -21,7 +21,7 @@ class gc_gcWebsiteFunctions_submit_rating_sendBoxTitleBase: RscTitle {
     h = QUOTE(gc_GCWEBSITEFUNCTIONS_ELEMENT_H);
 }; 
 
-class gc_gcWebsiteFunctions_submit_rating_sendBoxListboxBase: RscCombo {
+class GVAR(submit_rating_sendBoxListboxBase): RscCombo {
     idc = -1;
 
     font = "RobotoCondensed";
@@ -38,7 +38,7 @@ class gc_gcWebsiteFunctions_submit_rating_sendBoxListboxBase: RscCombo {
     h = QUOTE(gc_GCWEBSITEFUNCTIONS_ELEMENT_H);
 };
 
-class gc_gcWebsiteFunctions_submit_rating_sendBoxButtonBase: RscButtonMenu {
+class GVAR(submit_rating_sendBoxButtonBase): RscButtonMenu {
     idc = gc_GCWEBSITEFUNCTIONS_IDC_SUBMIT_RATING_SENDBUTTON;
  
     text = "SEND RATING";

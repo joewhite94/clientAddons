@@ -4,7 +4,7 @@ class RscEdit;
 class RscButtonMenu;
 class RscCombo;
 
-class gc_gcWebsiteFunctions_submit_bugreport_sendBoxTitleBase: RscTitle {
+class GVAR(submit_bugreport_sendBoxTitleBase): RscTitle {
     idc = -1;
     style = 0;
     text = "SUBMIT A MISSION BUG REPORT";
@@ -21,7 +21,7 @@ class gc_gcWebsiteFunctions_submit_bugreport_sendBoxTitleBase: RscTitle {
     h = QUOTE(gc_GCWEBSITEFUNCTIONS_ELEMENT_H);
 };
 
-class gc_gcWebsiteFunctions_submit_bugreport_sendBoxBGBase: RscText {
+class GVAR(submit_bugreport_sendBoxBGBase): RscText {
     idc = -1;
 
     colorBackground[] = {0, 0, 0, 0.700000};
@@ -32,7 +32,7 @@ class gc_gcWebsiteFunctions_submit_bugreport_sendBoxBGBase: RscText {
     h = QUOTE(gc_GCWEBSITEFUNCTIONS_EDITBOX_BG_H);
 };
 
-class gc_gcWebsiteFunctions_submit_bugreport_sendBoxBase: RscEdit {
+class GVAR(submit_bugreport_sendBoxBase): RscEdit {
     idc = -1;
     style = 16;
 
@@ -52,7 +52,7 @@ class gc_gcWebsiteFunctions_submit_bugreport_sendBoxBase: RscEdit {
     h = QUOTE(gc_GCWEBSITEFUNCTIONS_EDITBOX_H);
 };
 
-class gc_gcWebsiteFunctions_submit_bugreport_sendBoxButtonBase: RscButtonMenu {
+class GVAR(submit_bugreport_sendBoxButtonBase): RscButtonMenu {
     idc = gc_GCWEBSITEFUNCTIONS_IDC_SUBMIT_BUGREPORT_SENDBUTTON;
  
     text = "SEND BUG REPORT";
