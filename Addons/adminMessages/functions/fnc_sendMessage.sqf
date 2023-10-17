@@ -34,7 +34,7 @@ if ([] call FUNC(isAdminOrZeus)) then {
     };
 
     // display sent message locally
-    [format ["%1 %2",localize "STR_grad_ADMINMESSAGES_TO",_lbText],_message] call FUNC(displayMessage);
+    [format ["%1 %2",localize "STR_GC_ADMINMESSAGES_TO",_lbText],_message] call FUNC(displayMessage);
 
     // send message to recipient
     [profileName,getPlayerUID player,_message,_receiveCondition,_receiveConditionParams] remoteExec [QFUNC(receiveMessage), 0, false];
@@ -44,7 +44,7 @@ if ([] call FUNC(isAdminOrZeus)) then {
 
 } else {
     // display sent message locally
-    [format ["%1 %2",localize "STR_grad_ADMINMESSAGES_TO","Admin"],_message] call FUNC(displayMessage);
+    [format ["%1 %2",localize "STR_GC_ADMINMESSAGES_TO","Admin"],_message] call FUNC(displayMessage);
 
     // send message to recipient
     [profileName,getPlayerUID player,_message] remoteExec [QFUNC(receiveMessage),0,false];

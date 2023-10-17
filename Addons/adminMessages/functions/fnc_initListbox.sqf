@@ -30,7 +30,7 @@ private _fnc_addHeadline = {
 
 //LATEST CONVERSATIONS =========================================================
 if (!isNil QGVAR(latestConvos) && {count GVAR(latestConvos) > 0}) then {
-    ["STR_grad_ADMINMESSAGES_LATESTCONVOS"] call _fnc_addHeadline;
+    ["STR_GC_ADMINMESSAGES_LATESTCONVOS"] call _fnc_addHeadline;
     {
         _x call _fnc_addEntry;
         false
@@ -40,10 +40,10 @@ if (!isNil QGVAR(latestConvos) && {count GVAR(latestConvos) > 0}) then {
 
 
 //BY SIDE ======================================================================
-["STR_grad_ADMINMESSAGES_BYCATEGORY"] call _fnc_addHeadline;
-[localize "STR_grad_ADMINMESSAGES_EVERYONE",-2] call _fnc_addEntry;
-[localize "STR_grad_ADMINMESSAGES_OTHERADMINS",-8] call _fnc_addEntry;
-[localize "STR_grad_ADMINMESSAGES_OTHERADMINSANDZEUS",-3] call _fnc_addEntry;
+["STR_GC_ADMINMESSAGES_BYCATEGORY"] call _fnc_addHeadline;
+[localize "STR_GC_ADMINMESSAGES_EVERYONE",-2] call _fnc_addEntry;
+[localize "STR_GC_ADMINMESSAGES_OTHERADMINS",-8] call _fnc_addEntry;
+[localize "STR_GC_ADMINMESSAGES_OTHERADMINSANDZEUS",-3] call _fnc_addEntry;
 ["BLUFOR",-4] call _fnc_addEntry;
 ["OPFOR",-5] call _fnc_addEntry;
 ["INDEPENDENT",-6] call _fnc_addEntry;
@@ -52,7 +52,7 @@ if (!isNil QGVAR(latestConvos) && {count GVAR(latestConvos) > 0}) then {
 
 
 //LIST OF PLAYERS ==============================================================
-["STR_grad_ADMINMESSAGES_BYPLAYER"] call _fnc_addHeadline;
+["STR_GC_ADMINMESSAGES_BYPLAYER"] call _fnc_addHeadline;
 private _playerData = [];
 {
     _playerData pushBack [toUpper ([_x,true] call BIS_fnc_getName),getPlayerUID _x];

@@ -16,7 +16,7 @@ if (
     private _customChatTitleDisplay = uiNamespace getVariable [QGVAR(rscCustomChat),displayNull];
     private _ctrlText = _customChatTitleDisplay displayCtrl GA_ADMINMESSAGES_IDC_CUSTOMCHATTEXT;
 
-    _ctrlText ctrlSetStructuredText parseText format ["<t color='#E51919'>%1</t> %2",format [localize "STR_grad_ADMINMESSAGES_CHANNEL",_info],_message];
+    _ctrlText ctrlSetStructuredText parseText format ["<t color='#E51919'>%1</t> %2",format [localize "STR_GC_ADMINMESSAGES_CHANNEL",_info],_message];
 
     private _textHeight = ctrlTextHeight _ctrlText;
     /* private _textWidth = ctrlTextWidth _ctrlText; */
@@ -31,7 +31,7 @@ if (
 
 // add message to chat either way >> user can check chat history on map, if enabled
 GVAR(channel) radioChannelAdd [player];
-GVAR(channel) radioChannelSetCallsign format [localize "STR_grad_ADMINMESSAGES_CHANNEL",_info];
+GVAR(channel) radioChannelSetCallsign format [localize "STR_GC_ADMINMESSAGES_CHANNEL",_info];
 
 player customChat [GVAR(channel), _message];
 GVAR(channel) radioChannelRemove [player];

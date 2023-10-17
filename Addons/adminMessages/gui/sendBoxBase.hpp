@@ -61,7 +61,7 @@ class ga_adminMessages_sendBoxButtonBase: RscButtonMenu {
     onLoad = QUOTE( _this call FUNC(setSendButtonPosition));
     onUnLoad = QUOTE(uiNamespace setVariable [ARR_2(QQGVAR(sendBoxButtonCtrl), nil)]);
 
-    text = "$STR_grad_ADMINMESSAGES_SENDBOXBUTTON";
+    text = "$STR_GC_ADMINMESSAGES_SENDBOXBUTTON";
     action = QUOTE(call FUNC(sendMessage));
 
     x = GA_ADMINMESSAGES_TITLE_X;

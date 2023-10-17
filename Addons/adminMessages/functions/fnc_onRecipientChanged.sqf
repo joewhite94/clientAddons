@@ -8,8 +8,8 @@ private _sendButton = uiNamespace getVariable [QGVAR(sendBoxButtonCtrl), control
 
 if (!(_data isEqualType 0) || {_data == -1}) then {
     _sendButton ctrlEnable false;
-    _sendButton ctrlSetText (localize "STR_grad_ADMINMESSAGES_SELECTVALIDRECIP");
+    _sendButton ctrlSetText (localize "STR_GC_ADMINMESSAGES_SELECTVALIDRECIP");
 } else {
     _sendButton ctrlEnable true;
-    _sendButton ctrlSetText format [(localize "STR_grad_ADMINMESSAGES_SENDTO"), _ctrl lbText _selID];
+    _sendButton ctrlSetText format [(localize "STR_GC_ADMINMESSAGES_SENDTO"), _ctrl lbText _selID];
 };
