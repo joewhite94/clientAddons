@@ -1,0 +1,11 @@
+// ALL
+convert to macros, fix formatting, move to proper func format
+optimize very old functions
+
+// debugConsole 
+event hooks into adminmessages for displaying GM actions
+
+// adminMessages 
+event for recieving debugconsole/zeus actions by GMs
+
+
