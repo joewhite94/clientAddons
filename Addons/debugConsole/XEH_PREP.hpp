@@ -1,0 +1,15 @@
+PREP(endMission);
+PREP(GMHeal);
+PREP(handleAdminControls);
+PREP(handleCheckbox);
+PREP(handleMapClick);
+PREP(handleSpectator);
+PREP(handleZeus);
+PREP(hasGMAccess);
+PREP(init);
+PREP(lottery);
+PREP(mapMonitor);
+PREP(spawnItem);
+PREP(teleportU2U);
+PREP(TPUnit);
+PREP(unflipVehicle);

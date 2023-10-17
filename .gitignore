@@ -1,0 +1,13 @@
+.hemttout/
+/a3/
+/x/
+
+*.pbo
+*.cache
+*.biprivatekey
+
+*/.env
+
+.vscode
+keys
+venv
