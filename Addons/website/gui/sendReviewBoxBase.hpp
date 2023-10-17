@@ -4,7 +4,7 @@ class RscEdit;
 class RscButtonMenu;
 class RscCombo;
 
-class gc_gcWebsiteFunctions_submit_review_sendBoxTitleBase: RscTitle {
+class GVAR(submit_review_sendBoxTitleBase): RscTitle {
     idc = -1;
     style = 0;
 
@@ -23,7 +23,7 @@ class gc_gcWebsiteFunctions_submit_review_sendBoxTitleBase: RscTitle {
     h = QUOTE(gc_GCWEBSITEFUNCTIONS_ELEMENT_H);
 };
 
-class gc_gcWebsiteFunctions_submit_review_sendBoxBGBase: RscText {
+class GVAR(submit_review_sendBoxBGBase): RscText {
     idc = -1;
 
     colorBackground[] = {0, 0, 0, 0.700000};
@@ -34,7 +34,7 @@ class gc_gcWebsiteFunctions_submit_review_sendBoxBGBase: RscText {
     h = QUOTE(gc_GCWEBSITEFUNCTIONS_EDITBOX_BG_H);
 };
 
-class gc_gcWebsiteFunctions_submit_review_sendBoxBase: RscEdit {
+class GVAR(submit_review_sendBoxBase): RscEdit {
     idc = -1;
     style = 16;
 
@@ -54,7 +54,7 @@ class gc_gcWebsiteFunctions_submit_review_sendBoxBase: RscEdit {
     h = QUOTE(gc_GCWEBSITEFUNCTIONS_EDITBOX_H);
 };
 
-class gc_gcWebsiteFunctions_submit_review_sendBoxButtonBase: RscButtonMenu {
+class GVAR(submit_review_sendBoxButtonBase): RscButtonMenu {
     idc = gc_GCWEBSITEFUNCTIONS_IDC_SUBMIT_REVIEW_SENDBUTTON;
  
     text = "SEND REVIEW";
