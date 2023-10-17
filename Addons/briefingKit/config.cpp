@@ -1,12 +1,3 @@
-class CfgPatches {
-    class uo_briefingkit {
-        units[]={};
-        weapons[]={};
-        requiredVersion=1.62;
-        requiredAddons[]= {"cba_main"};
-    };
-};
-
 #include "script_component.hpp"
 
 class CfgPatches {

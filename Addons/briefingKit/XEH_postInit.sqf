@@ -1,8 +1,11 @@
-UO_loadoutIndex = {
+#include "script_component.hpp"
+
+FUNC(loadoutIndex) = {
+    
     private _newIndex = player createDiarySubject ["GearIndex", "Loadouts"];
     private _playerSide = side player;
     private _grpArray = [];
-
+    
     allGroups select {side _x isEqualTo _playerSide} apply {
         private _grpText = "";
             private _group = _x;
@@ -25,10 +28,10 @@ UO_loadoutIndex = {
                         if ((_image find ".paa") isEqualTo -1) then {_image = _image + ".paa";};
                         format ["<img image='%1' width='%2' height='%3'/>", _image, _dimensions select 0, _dimensions select 1]
                     };
-
+    
                     private _lobbyName = if !(((roleDescription _x) find "@") isEqualTo -1) then {((roleDescription _x) splitString "@") select 0} else {roleDescription _x};
                     if (_lobbyName isEqualTo "") then {_lobbyName = getText (configFile >> "CfgVehicles" >> typeOf _x >> "displayName")};
-
+    
                     // Creating briefing text
                     private _customIcon = _unit getVariable ["ace_nametags_rankIcon", ""];
                     private _rankImage = if (_customIcon isNotEqualto "") then {
@@ -36,7 +39,7 @@ UO_loadoutIndex = {
                     } else {
                         format ["\A3\Ui_f\data\GUI\Cfg\Ranks\%1_gs.paa", (toLower rank _unit)]
                     };
-
+    
                     _textToDisplay = _textToDisplay + format ["", rank _unit];
                     _textToDisplay = _textToDisplay +
                         format ["<img image='%4' width='16' height='16'/> <font size='14' color='%5'>%1 - %2</font> - %3kg<br/>",
@@ -46,7 +49,7 @@ UO_loadoutIndex = {
                             _rankImage,
                             if (_unit isEqualTo player) then {"#5555FF"} else {"#FFFFFF"}
                         ];
-
+    
                     private _getApparelPicture = {
                         if (_this isNotEqualto "") then {
                             private _name  = getText(configFile >> "CfgWeapons" >> _this >> "displayName");
@@ -63,9 +66,9 @@ UO_loadoutIndex = {
                         };
                     };
                     {_textToDisplay = _textToDisplay + (_x call _getApparelPicture)} forEach [uniform _unit, vest _unit, backpack _unit, headgear _unit];
-
+    
                     _textToDisplay = _textToDisplay + "<br/>";
-
+    
                     //display both weapon and it's attachments
                     private _getWeaponPicture = {
                         params ["_weaponName", "_weaponItems"];
@@ -80,7 +83,7 @@ UO_loadoutIndex = {
                         };
                         _str
                     };
-
+    
                     //display array of magazines
                     private _displayMags = {
                         _textToDisplay = _textToDisplay + "  ";
@@ -92,7 +95,7 @@ UO_loadoutIndex = {
                         };
                         _textToDisplay = _textToDisplay + "<br/>";
                     };
-
+    
                     //get magazines for a weapon and it's muzzles (grenade launchers etc.)
                     private _getMuzzleMags = {
                         private _result = getArray(configFile >> "CfgWeapons" >> _this >> "magazines");
@@ -104,23 +107,23 @@ UO_loadoutIndex = {
                         _result = _result apply {toLower _x};
                         _result
                     };
-
+    
                     private _sWeaponName = secondaryWeapon _unit;
                     private _hWeaponName = handgunWeapon _unit;
                     private _weaponName = primaryWeapon _unit;
-
+    
                     // Primary weapon
                     if (_weaponName isNotEqualTo "") then {
                         private _name = getText(configFile >> "CfgWeapons" >> _weaponName >> "displayName");
                         _textToDisplay = _textToDisplay + format ["<font color='#FFFF00'>Primary: </font>%1<br/>", _name] + ([_weaponName, primaryWeaponItems _unit] call _getWeaponPicture);
                     };
-
+    
                     private _allMags = magazines _unit;
                     _allMags = _allMags apply {toLower _x};
                     private _primaryMags = _allMags arrayIntersect (_weaponName call _getMuzzleMags);
-
+    
                     _primaryMags call _displayMags;
-
+    
                     // Secondary
                     private _secondaryMags = [];
                     if (_sWeaponName isNotEqualTo "") then {
@@ -130,7 +133,7 @@ UO_loadoutIndex = {
                         _secondaryMags = _allMags arrayIntersect (_sWeaponName call _getMuzzleMags);
                         _secondaryMags call _displayMags;
                     };
-
+    
                     // Handgun
                     private _handgunMags = [];
                     if (_hWeaponName isNotEqualTo "") then {
@@ -140,23 +143,23 @@ UO_loadoutIndex = {
                         _handgunMags = _allMags arrayIntersect (_hWeaponName call _getMuzzleMags);
                         _handgunMags call _displayMags;
                     };
-
+    
                     _allMags = _allMags - _primaryMags;
                     _allMags = _allMags - _secondaryMags;
                     _allMags = _allMags - _handgunMags;
-
+    
                     private _radios = [];
                     private _allItems = items _unit;
-
+    
                     {
                         if !((toLower _x) find "acre_" isEqualTo -1) then {
                             _radios pushBack _x;
                         };
                     } forEach _allItems;
                     _allItems = _allItems - _radios;
-
+    
                     _textToDisplay = _textToDisplay + format ["<font color='#FFFF00'>Magazines and items: </font>(Click count for info.)<br/>", _x];
-
+    
                     //display radios, then magazines, inventory items and assigned items
                     {
                         _x params ["_items", "_cfgType"];
@@ -171,7 +174,7 @@ UO_loadoutIndex = {
                     _textToDisplay = _textToDisplay + "<br/>============================================================<br/>";
                     _show = true;
             };
-
+    
             if _show then {
                 _grpText = _grpText + _textToDisplay;
             };
@@ -179,17 +182,17 @@ UO_loadoutIndex = {
                 _grpArray pushBackUnique ["GearIndex", [groupID _group, _grpText]];
             };
     };
-
+    
     reverse _grpArray;
     _grpArray apply {
         player createDiaryRecord _x;
     };
     
-    UO_GearDiaryRecord = player createDiaryRecord ["GearIndex", ["ORBAT", ""]];
-
-    UO_showOrbat = {
-        private _text = "<br/><execute expression='[] call UO_showOrbat'>Refresh</execute> (click to show JIPs)<br/><br/>";
-
+    GVAR(GearDiaryRecord) = player createDiaryRecord ["GearIndex", ["ORBAT", ""]];
+    
+    FUNC(showOrbat) = {
+        private _text = "<br/><execute expression='[] call gc_clientSide_briefingKit_showOrbat'>Refresh</execute> (click to show JIPs)<br/><br/>";
+    
         private _getPicture = {
             params ["_name", "_dimensions", ["_type", "CfgWeapons"]];
             if (_name isEqualTo "") exitwith {""};
@@ -199,7 +202,7 @@ UO_loadoutIndex = {
             if ((_image find ".paa") isEqualTo -1) then {_image = _image + ".paa";};
             format ["<img image='%1' width='%2' height='%3'/>", _image, _dimensions select 0, _dimensions select 1]
         };
-
+    
         allGroups select {
             ((side _x) isEqualTo (side player)) &&
             {!isNull leader _x} &&
@@ -214,7 +217,7 @@ UO_loadoutIndex = {
                         _radios = _radios + ([_x, [28,28]] call _getPicture);
                     };
                 };
-
+    
                 private _optics = "";
                 private _opticsClasses = ["UK3CB_BAF_Soflam_Laserdesignator","Laserdesignator","Laserdesignator_01_khk_F","Laserdesignator_02","Laserdesignator_02_ghex_F","Laserdesignator_03","rhsusf_bino_lerca_1200_black","rhsusf_bino_lerca_1200_tan","ACE_VectorDay","ACE_Vector","rhs_pdu4","rhsusf_bino_lrf_Vector21","Rangefinder","ACE_Yardage450","ACE_MX2A","Binocular","rhsusf_bino_m24_ARD","rhsusf_bino_m24","rhsusf_bino_leopold_mk4"];
                 _opticsClasses apply {
@@ -223,17 +226,17 @@ UO_loadoutIndex = {
                         _optics = ([_class, [28,28]] call _getPicture);
                     };
                 };
-
+    
                 private _lobbyName = if !(((roleDescription _unit) find "@") isEqualTo -1) then {((roleDescription _unit) splitString "@") select 0} else {roleDescription _unit};
                 if (_lobbyName isEqualTo "") then {_lobbyName = getText (configFile >> "CfgVehicles" >> typeOf _unit >> "displayName")};
-
+    
                 private _customIcon = _unit getVariable ["ace_nametags_rankIcon", ""];
                 private _rankImage = if (_customIcon isNotEqualto "") then {
                   _rankImage = _customIcon;
                 } else {
                     format ["\A3\Ui_f\data\GUI\Cfg\Ranks\%1_gs.paa", (toLower rank _unit)]
                 };
-
+    
                 _text = _text +
                     format ["%1<img image='%2' width='15' height='15'/> <font size='16' color='%3'>%4 | %5</font> %6 | %7kg<br/>%8 %9 %10 %11<br/>",
                         if (_forEachIndex isEqualTo 0) then {""} else {"     "},
@@ -250,12 +253,13 @@ UO_loadoutIndex = {
                     ];
             } forEach [leader _x] + (units _x - [leader _x]);
         };
-
-        player setDiaryRecordText [["GearIndex", UO_GearDiaryRecord], ["ORBAT", _text]];
+    
+        player setDiaryRecordText [["GearIndex", GVAR(GearDiaryRecord)], ["ORBAT", _text]];
     };
-    call UO_showOrbat;
+    
+    [] call FUNC(showOrbat);
 };
 
 if !(getMissionConfigValue ["MMFW_Core_Enabled",false]) then {
-    [] call UO_loadoutIndex;
+    [] call FUNC(loadoutIndex);
 };
