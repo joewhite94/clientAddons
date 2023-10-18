@@ -56,7 +56,7 @@ if (_rating == "negative") then {
 	};
 } else {
 	SETMVAR(sendingInProgress,true);
-	[QGVAR(onSubmitRating), [_rating, player]] call CBA_fnc_serverEvent;
+	["gc_onSubmitRating", [_rating, player]] call CBA_fnc_serverEvent;
 };
 
 

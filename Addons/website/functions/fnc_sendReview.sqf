@@ -50,7 +50,7 @@ private _missionDisplay = if (_isSpectating) then {
 					BIS_Message_Confirmed = true;
 					SETMVAR(sendingInProgress,true);
 					private _message = GETMVAR(missionReviewText,"");
-					["GC_serverSide_website_onSubmitReview", [_message, player]] call CBA_fnc_serverEvent;
+					["gc_onSubmitReview", [_message, player]] call CBA_fnc_serverEvent;
 				}
 			],
 			[

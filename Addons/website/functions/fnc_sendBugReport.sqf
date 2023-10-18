@@ -25,7 +25,7 @@ if (!_isSpectating) then {
 	findDisplay 49 closeDisplay 1;
 };
 
-[QGVAR(onGetBugReports), [player]] call CBA_fnc_serverEvent;
+["gc_onGetBugReports", [player]] call CBA_fnc_serverEvent;
  
 systemChat "GC Mission Bug Report | Please wait, fetching current bug reports.";
 
