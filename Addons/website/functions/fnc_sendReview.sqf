@@ -1,7 +1,7 @@
 #include "script_component.hpp"
 
-private _hasSentReview = GETVAR(player,hasSentReview,false);
-private _sendingInProgress = GETVAR(player,sendingInProgress,false);
+private _hasSentReview = GETMVAR(hasSentReview,false);
+private _sendingInProgress = GETMVAR(sendingInProgress,false);
 
 if (_hasSentReview) exitWith {
 	playSoundUI ["a3\sounds_f\debugsound.wss"];
@@ -25,10 +25,10 @@ private _editBox = uiNamespace getVariable [QGVAR(reviewSendBoxCtrl), controlNul
 
 if (isNull _editBox) exitWith {};
 
-SETPVAR(player,missionReviewText,""); // resets the text
+SETMVAR(missionReviewText,""); // resets the text
 private _message = ctrlText _editBox;
 if (_message == "") exitWith {};
-SETPVAR(player,missionReviewText,_message); // sets the text to the player vars so I can get it inside the callback of the BIS_fnc_3DENShowMessage
+SETMVAR(missionReviewText, _message); // sets the text to the player vars so I can get it inside the callback of the BIS_fnc_3DENShowMessage
 
 private _isSpectating = ["IsSpectating"] call BIS_fnc_EGSpectator;
 private _missionDisplay = if (_isSpectating) then {
@@ -37,17 +37,20 @@ private _missionDisplay = if (_isSpectating) then {
 	findDisplay 49
 };
 
-[_message, _missionDisplay] spawn {
-	params ["_message", "_missionDisplay"];
+[_missionDisplay] spawn {
+	params ["_missionDisplay"];
 	[{
-		params ["_message", "_missionDisplay"];
+		params ["_missionDisplay"];
 		[
 			"You won't be able to send a new review during this playthrough of this mission.",
 			"Are you sure?",
 			[
 				"Yes",
 				{
-					[QGVAR(onSubmitReview), [_message, player]] call CBA_fnc_serverEvent;
+					BIS_Message_Confirmed = true;
+					SETMVAR(sendingInProgress,true);
+					private _message = GETMVAR(missionReviewText,"");
+					["GC_serverSide_website_onSubmitReview", [_message, player]] call CBA_fnc_serverEvent;
 				}
 			],
 			[
@@ -59,7 +62,7 @@ private _missionDisplay = if (_isSpectating) then {
 			"x\gc_clientSide\addons\website\data\gc_logo.paa",
 			_missionDisplay
 		] call BIS_fnc_3DENShowMessage;
-	}, [_message, _missionDisplay] ] call CBA_fnc_execNextFrame;
+	}, [_missionDisplay] ] call CBA_fnc_execNextFrame;
 };
 
 playSoundUI ["a3\sounds_f\sfx\beep_target.wss"];

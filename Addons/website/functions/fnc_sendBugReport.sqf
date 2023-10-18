@@ -1,6 +1,6 @@
 #include "script_component.hpp"
 
-private _sendingInProgress = GETVAR(player,sendingInProgress,false);
+private _sendingInProgress = GETMVAR(sendingInProgress,false);
 
 if (_sendingInProgress) exitWith {
 	playSoundUI ["a3\sounds_f\debugsound.wss"];
@@ -15,10 +15,10 @@ private _editBox = uiNamespace getVariable [QGVAR(bugReportSendBoxCtrl), control
 
 if (isNull _editBox) exitWith {};
 
-SETPVAR(player,missionBugReportText,""); // resets the text
+SETMVAR(missionBugReportText,""); // resets the text
 private _message = ctrlText _editBox;
 if (_message == "") exitWith {};
-SETPVAR(player,missionBugReportText,_message); // sets the text to the player vars so I can get it inside the callback of the BIS_fnc_3DENShowMessage
+SETMVAR(missionBugReportText,_message); // sets the text to the player vars so I can get it inside the callback of the BIS_fnc_3DENShowMessage
 
 private _isSpectating = ["IsSpectating"] call BIS_fnc_EGSpectator;
 if (!_isSpectating) then {

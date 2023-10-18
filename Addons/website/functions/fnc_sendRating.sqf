@@ -1,6 +1,6 @@
 #include "script_component.hpp"
 
-private _sendingInProgress = GETVAR(player,sendingInProgress,false);
+private _sendingInProgress = GETMVAR(sendingInProgress,false);
 
 if (_sendingInProgress) exitWith {
 	playSoundUI ["a3\sounds_f\debugsound.wss"];
@@ -18,7 +18,7 @@ private _rating = _listbox lbData _lbCurSel;
 private _lbText = _listbox lbText _lbCurSel;
 private _receiveConditionParams = [];
 
-SETPVAR(player,missionRating,_rating); // sets the text to the player vars so I can get it inside the callback of the BIS_fnc_3DENShowMessage
+SETMVAR(missionRating,_rating); // sets the text to the player vars so I can get it inside the callback of the BIS_fnc_3DENShowMessage
 
 if (_rating == "negative") then {
 	private _isSpectating = ["IsSpectating"] call BIS_fnc_EGSpectator;
@@ -38,9 +38,9 @@ if (_rating == "negative") then {
 					"Confirm",
 					{
 						BIS_Message_Confirmed = true;
-						SETPVAR(player,sendingInProgress,true);
-						private _rating = GETVAR(player,missionRating,"");
-						[QGVAR(onSubmitRating), [_rating, player]] call CBA_fnc_serverEvent;
+						SETMVAR(sendingInProgress,true);
+						private _rating = GETMVAR(missionRating,"");
+						["GC_serverSide_website_onSubmitRating", [_rating, player]] call CBA_fnc_serverEvent;
 					}
 				],
 				[
@@ -55,7 +55,7 @@ if (_rating == "negative") then {
 		}, [_missionDisplay]] call CBA_fnc_execNextFrame;
 	};
 } else {
-	SETPVAR(player,sendingInProgress,true);
+	SETMVAR(sendingInProgress,true);
 	[QGVAR(onSubmitRating), [_rating, player]] call CBA_fnc_serverEvent;
 };
 
