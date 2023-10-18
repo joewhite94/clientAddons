@@ -31,25 +31,23 @@ if (_message == "") exitWith {};
 SETPVAR(player,missionReviewText,_message); // sets the text to the player vars so I can get it inside the callback of the BIS_fnc_3DENShowMessage
 
 private _isSpectating = ["IsSpectating"] call BIS_fnc_EGSpectator;
-private _missionDisplay = nil;
-if (!_isSpectating) then {
-	findDisplay 49 closeDisplay 1;
-	_missionDisplay = [] call BIS_fnc_displayMission;
+private _missionDisplay = if (_isSpectating) then {
+	["GetDisplay"] call BIS_fnc_EGSpectator
+} else {
+	findDisplay 49
 };
 
-[_message] spawn {
-	params ["_message"];
+[_message, _missionDisplay] spawn {
+	params ["_message", "_missionDisplay"];
 	[{
-		params ["_message"];
-
+		params ["_message", "_missionDisplay"];
 		[
 			"You won't be able to send a new review during this playthrough of this mission.",
 			"Are you sure?",
 			[
 				"Yes",
 				{
-		 
-					["gc_onSubmitReview", [_message, player]] call CBA_fnc_serverEvent;
+					[QGVAR(onSubmitReview), [_message, player]] call CBA_fnc_serverEvent;
 				}
 			],
 			[
@@ -58,10 +56,10 @@ if (!_isSpectating) then {
 					BIS_Message_Confirmed = false
 				}
 			],
-			"\x\gc_websiteFunctionsClient\addons\gcWebsiteFunctions\data\gc_logo.paa",
+			"x\gc_clientSide\addons\website\data\gc_logo.paa",
 			_missionDisplay
 		] call BIS_fnc_3DENShowMessage;
-	}, [_message] ] call CBA_fnc_execNextFrame;
+	}, [_message, _missionDisplay] ] call CBA_fnc_execNextFrame;
 };
 
 playSoundUI ["a3\sounds_f\sfx\beep_target.wss"];

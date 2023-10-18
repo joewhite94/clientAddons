@@ -33,9 +33,9 @@ class GVAR(submit_review_sendBoxBase): RscEdit {
 	shadow=0;
 	font="EtelkaMonospacePro";
 	sizeEx="0.7 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-	onLoad="uiNamespace setVariable [""gc_websiteFunctionsClient_gcWebsiteFunctions_reviewSendBoxCtrl"", (_this select 0)]";
-	onUnLoad="uiNamespace setVariable [""gc_websiteFunctionsClient_gcWebsiteFunctions_reviewSendBoxCtrl"", nil]";
-	onKeyDown="if ((_this select 1) isEqualTo 28 && !(_this select 2) && !(_this select 3) && !(_this select 4)) then {call gc_websiteFunctionsClient_gcWebsiteFunctions_fnc_sendReview;};";
+	onLoad= QUOTE(uiNamespace setVariable [ARR_2(QQGVAR(reviewSendBoxCtrl),(_this select 0))]);
+	onUnload= QUOTE(uiNamespace setVariable [ARR_2(QQGVAR(reviewSendBoxCtrl),nil)]);
+	onKeyDown= QUOTE(if ((_this select 1) isEqualTo 28 && {!(_this select 2)} && {!(_this select 3)} && {!(_this select 4)}) then {call FUNC(sendReview)};);
 	x="(((safeZoneX + safeZoneW - ((safezoneW / safezoneH) min 1.2)) + 24 * (((safezoneW / safezoneH) min 1.2) / 40)) + (0.5 * (((safezoneW / safezoneH) min 1.2) / 40)))";
 	y="(((1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) + (safezoneY)) + (1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)) + (0.1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25))) + ((0.5 * (1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25))) / ((getResolution select 5)/0.55)))";
 	w="((15 * (((safezoneW / safezoneH) min 1.2) / 40)) - 2 * (0.5 * (((safezoneW / safezoneH) min 1.2) / 40)))";
@@ -44,7 +44,7 @@ class GVAR(submit_review_sendBoxBase): RscEdit {
 class GVAR(submit_review_sendBoxButtonBase): RscButtonMenu {
 	idc=33500;
 	text="SEND REVIEW";
-	action="call gc_websiteFunctionsClient_gcWebsiteFunctions_fnc_sendReview";
+	action= QUOTE(call FUNC(sendReview));
 	x="((safeZoneX + safeZoneW - ((safezoneW / safezoneH) min 1.2)) + 24 * (((safezoneW / safezoneH) min 1.2) / 40))";
 	y="(((1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) + (safezoneY)) + (1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)) + (0.1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25))) + ((8 * (1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25))) / ((getResolution select 5)/0.55)) + (0.1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)))";
 	w="(15 * (((safezoneW / safezoneH) min 1.2) / 40))";
@@ -75,9 +75,9 @@ class GVAR(submit_rating_sendBoxListboxBase): RscCombo {
 	font="RobotoCondensed";
 	sizeEx=0.035;
 	rowHeight=10;
-	onLoad="_this call gc_websiteFunctionsClient_gcWebsiteFunctions_fnc_initListbox";
-	onUnLoad="uiNamespace setVariable [""gc_websiteFunctionsClient_gcWebsiteFunctions_sendBoxListboxCtrl"", nil]";
-	onLBSelChanged="_this call gc_websiteFunctionsClient_gcWebsiteFunctions_fnc_onRecipientChanged";
+	onLoad= QUOTE(_this call FUNC(initListbox));
+	onUnload= QUOTE(uiNamespace setVariable [ARR_2(QQGVAR(sendBoxListboxCtrl),nil)]);
+	onLBSelChanged = QUOTE(_this call FUNC(onRecipientChanged));
 	x="((safeZoneX + safeZoneW - ((safezoneW / safezoneH) min 1.2)) + 24 * (((safezoneW / safezoneH) min 1.2) / 40))";
 	y="(((((1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) + (safezoneY)) + (1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)) + (0.1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25))) + ((8 * (1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25))) / ((getResolution select 5)/0.55)) + (0.1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25))) + (1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)) + ((0.5 * (1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25))) / ((getResolution select 5)/0.55))) + (1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)) + (0.1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)))";
 	w="(15 * (((safezoneW / safezoneH) min 1.2) / 40))";
@@ -86,7 +86,7 @@ class GVAR(submit_rating_sendBoxListboxBase): RscCombo {
 class GVAR(submit_rating_sendBoxButtonBase): RscButtonMenu {
 	idc=33501;
 	text="SEND RATING";
-	action="call gc_websiteFunctionsClient_gcWebsiteFunctions_fnc_sendRating";
+	action= QUOTE(call FUNC(sendRating));
 	x="((safeZoneX + safeZoneW - ((safezoneW / safezoneH) min 1.2)) + 24 * (((safezoneW / safezoneH) min 1.2) / 40))";
 	y="((((((1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) + (safezoneY)) + (1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)) + (0.1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25))) + ((8 * (1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25))) / ((getResolution select 5)/0.55)) + (0.1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25))) + (1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)) + ((0.5 * (1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25))) / ((getResolution select 5)/0.55))) + (1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)) + (0.1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25))) + (1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)) + (0.1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)))";
 	w="(15 * (((safezoneW / safezoneH) min 1.2) / 40))";
@@ -127,9 +127,9 @@ class GVAR(submit_bugreport_sendBoxBase): RscEdit {
 	shadow=0;
 	font="EtelkaMonospacePro";
 	sizeEx="0.7 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-	onLoad="uiNamespace setVariable [""gc_websiteFunctionsClient_gcWebsiteFunctions_bugReportSendBoxCtrl"", (_this select 0)]";
-	onUnLoad="uiNamespace setVariable [""gc_websiteFunctionsClient_gcWebsiteFunctions_bugReportSendBoxCtrl"", nil]";
-	onKeyDown="if ((_this select 1) isEqualTo 28 && !(_this select 2) && !(_this select 3) && !(_this select 4)) then {call gc_websiteFunctionsClient_gcWebsiteFunctions_fnc_sendBugReport;};";
+	onLoad= QUOTE(uiNamespace setVariable [ARR_2(QQGVAR(bugReportSendBoxCtrl),(_this select 0))]);
+	onUnload= QUOTE(uiNamespace setVariable [ARR_2(QQGVAR(bugReportSendBoxCtrl),nil)]);
+	onKeyDown= QUOTE(if ((_this select 1) isEqualTo 28 && {!(_this select 2)} && {!(_this select 3)} && {!(_this select 4)}) then {call FUNC(sendBugReport);};);
 	x="(((safeZoneX + safeZoneW - ((safezoneW / safezoneH) min 1.2)) + 24 * (((safezoneW / safezoneH) min 1.2) / 40)) + (0.5 * (((safezoneW / safezoneH) min 1.2) / 40)))";
 	y="(((((((((1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) + (safezoneY)) + (1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)) + (0.1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25))) + ((8 * (1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25))) / ((getResolution select 5)/0.55)) + (0.1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25))) + (1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)) + ((0.5 * (1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25))) / ((getResolution select 5)/0.55))) + (1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)) + (0.1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25))) + (1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)) + (0.1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25))) + (1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)) + ((0.5 * (1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25))) / ((getResolution select 5)/0.55))) + (1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)) + (0.1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25))) + ((0.5 * (1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25))) / ((getResolution select 5)/0.55)))";
 	w="((15 * (((safezoneW / safezoneH) min 1.2) / 40)) - 2 * (0.5 * (((safezoneW / safezoneH) min 1.2) / 40)))";
@@ -138,7 +138,7 @@ class GVAR(submit_bugreport_sendBoxBase): RscEdit {
 class GVAR(submit_bugreport_sendBoxButtonBase): RscButtonMenu {
 	idc=33502;
 	text="SEND BUG REPORT";
-	action="call gc_websiteFunctionsClient_gcWebsiteFunctions_fnc_sendBugReport";
+	action= QUOTE(call FUNC(sendBugReport));
 	x="((safeZoneX + safeZoneW - ((safezoneW / safezoneH) min 1.2)) + 24 * (((safezoneW / safezoneH) min 1.2) / 40))";
 	y="(((((((((1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) + (safezoneY)) + (1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)) + (0.1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25))) + ((8 * (1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25))) / ((getResolution select 5)/0.55)) + (0.1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25))) + (1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)) + ((0.5 * (1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25))) / ((getResolution select 5)/0.55))) + (1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)) + (0.1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25))) + (1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)) + (0.1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25))) + (1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)) + ((0.5 * (1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25))) / ((getResolution select 5)/0.55))) + (1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)) + (0.1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25))) + ((8 * (1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25))) / ((getResolution select 5)/0.55)) + (0.1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)))";
 	w="(15 * (((safezoneW / safezoneH) min 1.2) / 40))";

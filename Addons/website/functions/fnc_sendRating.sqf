@@ -19,14 +19,18 @@ private _lbText = _listbox lbText _lbCurSel;
 private _receiveConditionParams = [];
 
 SETPVAR(player,missionRating,_rating); // sets the text to the player vars so I can get it inside the callback of the BIS_fnc_3DENShowMessage
-findDisplay 49 closeDisplay 1;
 
 if (_rating == "negative") then {
-	[_rating] spawn {
-		params ["_rating"];
+	private _isSpectating = ["IsSpectating"] call BIS_fnc_EGSpectator;
+	private _missionDisplay = if (_isSpectating) then {
+		findDisplay 49
+	} else {
+		[] call BIS_fnc_displayMission 
+	};
+	[_missionDisplay] spawn {
+		params ["_missionDisplay"];
 		[{
-			params ["_rating"];
-
+			params ["_missionDisplay"];
 			[
 				"Please consider writing a constructive review for the mission maker.",
 				"You are sending a negative rating",
@@ -36,7 +40,7 @@ if (_rating == "negative") then {
 						BIS_Message_Confirmed = true;
 						SETPVAR(player,sendingInProgress,true);
 						private _rating = GETVAR(player,missionRating,"");
-						["gc_onSubmitRating", [_rating, player]] call CBA_fnc_serverEvent;
+						[QGVAR(onSubmitRating), [_rating, player]] call CBA_fnc_serverEvent;
 					}
 				],
 				[
@@ -46,14 +50,13 @@ if (_rating == "negative") then {
 					}
 				],
 				"\x\gc_websiteFunctionsClient\addons\gcWebsiteFunctions\data\gc_logo.paa",
-				[] call BIS_fnc_displayMission
+				_missionDisplay
 			] call BIS_fnc_3DENShowMessage;
-		}, [_rating] ] call CBA_fnc_execNextFrame;
+		}, [_missionDisplay]] call CBA_fnc_execNextFrame;
 	};
-} else{
-
+} else {
 	SETPVAR(player,sendingInProgress,true);
-	["gc_onSubmitRating", [_rating, player]] call CBA_fnc_serverEvent;
+	[QGVAR(onSubmitRating), [_rating, player]] call CBA_fnc_serverEvent;
 };
 
 

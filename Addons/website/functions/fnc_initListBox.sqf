@@ -4,7 +4,11 @@ params [["_ctrl", controlNull]];
 
 uiNamespace setVariable [QGVAR(sendBoxListboxCtrl),_ctrl];
 
-private _fnc_addEntry = {
+[
+	["Good | The mission is well made and interesting.", "positive"],
+	["It's alright | Just a regular enjoyable mission.", "neutral"],
+	["Bad | The mission has concept issues.", "negative"]
+] apply {
 	params ["_text", "_data"];
 	private _index = _ctrl lbAdd _text;
 	_ctrl lbSetData [_index, if !(_data isEqualType "") then {
@@ -14,10 +18,6 @@ private _fnc_addEntry = {
 	}];
 	_index
 };
-
-["Good | The mission is well made and interesting.", "positive"] call _fnc_addEntry;
-["It's alright | Just a regular enjoyable mission.", "neutral"] call _fnc_addEntry;
-["Bad | The mission has concept issues.", "negative"] call _fnc_addEntry;
 
 // set CURSEL ===================================================================
 if (lbCurSel _ctrl < 0 || lbCurSel _ctrl >= lbSize _ctrl) then {

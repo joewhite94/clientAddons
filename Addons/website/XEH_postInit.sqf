@@ -1,6 +1,6 @@
 #include "script_component.hpp"
 
-["gc_reviewResponse", {
+[QGVAR(reviewResponse), {
 	params ["_response"];
 	SETPVAR(player,sendingInProgress,false);
 	if (count _response > 1) then {
@@ -18,7 +18,7 @@
 	};
 }] call CBA_fnc_addEventHandler;
 
-["gc_bugReportResponse", {
+[QGVAR(bugReportResponse), {
 	params ["_response"];
 	SETPVAR(player,sendingInProgress,false);
 	if (count _response > 1) then {
@@ -36,7 +36,7 @@
 }] call CBA_fnc_addEventHandler;
 
  
-["gc_getBugReportsResponse", {
+[QGVAR(getBugReportsResponse), {
 	params ["_response", "_message"];
 	SETPVAR(player,sendingInProgress,false);
 	if (count _response > 1) then {
@@ -125,7 +125,7 @@
 }] call CBA_fnc_addEventHandler;
 
 
-["gc_ratingResponse", {
+[QGVAR(ratingResponse), {
 	params ["_response"];
 	
 	SETPVAR(player,sendingInProgress,false);
