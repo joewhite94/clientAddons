@@ -209,7 +209,7 @@ class GVAR(GMConsole) {
 			y="0.71 * safezoneH + safezoneY";
 			w="0.0984375 * safezoneW";
 			h="0.028 * safezoneH";
-			onButtonClick="['keyDown', [findDisplay 49,59], ''] execVM 'a3\ui_f\scripts\GUI\RscDisplayInterrupt.sqf'; false;"; false);
+			onButtonClick="['keyDown', [findDisplay 49,59], ''] execVM 'a3\ui_f\scripts\GUI\RscDisplayInterrupt.sqf'; false;";
 		};
 		class GVAR(EndMission): RscButton {
 			idc=1613;
